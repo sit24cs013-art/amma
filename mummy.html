@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Mother's Day</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Kavivanar&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            font-family: 'Kavivanar', cursive, sans-serif;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; /* Prevents scrolling */
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #d81b60;
+        }
+
+        /* Floating Hearts Animation */
+        .heart {
+            position: absolute;
+            bottom: -20px;
+            color: #ff4081;
+            font-size: 20px;
+            animation: floatUp 5s linear infinite;
+            opacity: 0.7;
+            z-index: 0;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Page Containers */
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            z-index: 10;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+        }
+
+        /* Page 1 Styles */
+        #page1 h1 {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            line-height: 1.5;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
+        }
+
+        .next-btn {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
+            cursor: pointer;
+            font-family: inherit;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 4px 20px rgba(255, 64, 129, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4); }
+        }
+
+        /* Page 2 Styles */
+        .polaroid-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            margin-top: -20px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 8px 8px 20px 8px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            width: 120px; /* Sized for mobile */
+            position: relative;
+            transform-origin: top center;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        /* Hanging strings and pins */
+        .polaroid::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            width: 1px;
+            height: 30px;
+            background: #888;
+        }
+
+        .polaroid::after {
+            content: '';
+            position: absolute;
+            top: -33px;
+            left: calc(50% - 4px);
+            width: 8px;
+            height: 8px;
+            background: #e91e63;
+            border-radius: 50%;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* Individual polaroid rotations and animations */
+        .p1 { transform: rotate(-8deg); animation: swing1 4s infinite ease-in-out alternate; }
+        .p2 { transform: rotate(5deg); animation: swing2 3.5s infinite ease-in-out alternate; margin-top: 20px; }
+        .p3 { transform: rotate(-4deg); animation: swing3 4.5s infinite ease-in-out alternate; }
+
+        @keyframes swing1 { from { transform: rotate(-10deg); } to { transform: rotate(-5deg); } }
+        @keyframes swing2 { from { transform: rotate(3deg); } to { transform: rotate(7deg); } }
+        @keyframes swing3 { from { transform: rotate(-6deg); } to { transform: rotate(-2deg); } }
+
+        .poem {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #880e4f;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.4);
+            padding: 15px;
+            border-radius: 15px;
+            width: 90%;
+        }
+
+        /* Adjustments for very small phones */
+        @media (max-width: 380px) {
+            .polaroid { width: 100px; }
+            .polaroid img { height: 100px; }
+            .poem { font-size: 1.2rem; }
+            #page1 h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="heart-container"></div>
+
+    <div id="page1" class="page">
+        <h1>உனக்கு உன் மகன்<br>இட்ட வாழ்த்து!</h1>
+        <button class="next-btn" onclick="openWishes()">திறக்க ❤️</button>
+    </div>
+
+    <div id="page2" class="page hidden">
+        <div class="polaroid-container">
+            <div class="polaroid p1"><img src="image1.jpeg" alt="Amma 1"></div>
+            <div class="polaroid p2"><img src="image2.jpeg" alt="Amma 2"></div>
+            <div class="polaroid p3"><img src="image3.jpeg" alt="Amma 3"></div>
+        </div>
+        <div class="poem">
+            என் முகம் பார்க்கும் முன்பே!<br>
+            என் குரல் கேட்கும் முன்பே!<br>
+            என் குணம் அறியும் முன்பே!<br>
+            என்னை நேசித்த ஓர் இதயம்!<br>
+            ஏன் அம்மா மட்டுமே...
+        </div>
+    </div>
+
+    <script>
+        // Function to switch from Page 1 to Page 2
+        function openWishes() {
+            document.getElementById('page1').classList.add('hidden');
+            setTimeout(() => {
+                document.getElementById('page2').classList.remove('hidden');
+            }, 400); // Wait for the fade out before showing the next page
+        }
+
+        // Function to generate floating hearts
+        function createHearts() {
+            const container = document.getElementById('heart-container');
+            const heartIcons = ['❤️', '💖', '💗', '💓', '🌸'];
+
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    let heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                    
+                    // Randomize position, size, and animation duration
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                    heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                    
+                    container.appendChild(heart);
+
+                    // Remove heart after animation to keep DOM clean
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 6000);
+                }, i * 300); // Stagger the creation of hearts
+            }
+        }
+
+        // Keep generating hearts continuously
+        setInterval(createHearts, 4000);
+        createHearts(); // Initial call
+    </script>
+</body>
+</html>
